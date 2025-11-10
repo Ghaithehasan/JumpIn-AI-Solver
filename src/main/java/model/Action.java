@@ -1,4 +1,6 @@
 package model;
 
-public class Action {
+public interface Action {
+
+    State applyMove(State currentState);
 }

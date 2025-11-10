@@ -23,8 +23,7 @@ public class Level {
 
     public State createInitialState()
     {
-        return new State();
-//        return new State(this.initialRabbits, this.initialFoxes, this);
+        return new State(this.initialRabbits, this.initialFoxes, this);
     }
 
 
@@ -33,19 +32,19 @@ public class Level {
     }
 
     public List<Position> getHoles() {
-        return new ArrayList<>(holes);
+        return List.copyOf(holes);
     }
 
     public List<Position> getMushrooms() {
-        return new ArrayList<>(mushrooms);
+          return List.copyOf(mushrooms);
     }
 
     public List<Fox> getInitialFoxes() {
-        return new ArrayList<>(initialFoxes);
+        return List.copyOf(initialFoxes);
     }
 
     public List<Rabbit> getInitialRabbits() {
-        return new ArrayList<>(initialRabbits);
+        return List.copyOf(initialRabbits);
     }
 }
 

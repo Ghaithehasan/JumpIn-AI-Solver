@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Rabbit {
 
-    final int id;
+    final private int id;
     final Position position;
 
 
