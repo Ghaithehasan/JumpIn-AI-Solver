@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Level {
@@ -45,6 +46,22 @@ public class Level {
 
     public List<Rabbit> getInitialRabbits() {
         return List.copyOf(initialRabbits);
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Level)) return false;
+        Level other = (Level) obj;
+        return this.levelId == other.levelId &&
+                this.holes.equals(other.holes) &&
+                this.mushrooms.equals(other.mushrooms) &&
+                this.initialRabbits.equals(other.initialRabbits) &&
+                this.initialFoxes.equals(other.initialFoxes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(levelId, holes, mushrooms, initialRabbits, initialFoxes);
     }
 }
 
