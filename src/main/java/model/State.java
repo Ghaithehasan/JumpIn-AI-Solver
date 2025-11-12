@@ -10,6 +10,8 @@ public class State {
     final private List<Rabbit> rabbits;
     final private List<Fox> foxes;
     final private Level level;
+
+
     final private Set<Position> holesSet;
 
 

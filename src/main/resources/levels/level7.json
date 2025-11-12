@@ -1,0 +1,16 @@
+
+{
+  "levelId": 7,
+  "holes": [
+    {"x": 0, "y": 0} ,{"x": 4, "y": 0} , {"x": 2, "y": 2} , {"x": 0, "y": 4} , {"x": 4, "y": 4}
+  ],
+  "mushrooms": [
+    {"x": 4, "y": 2} , {"x": 4, "y": 1} , {"x": 4, "y": 4}
+  ],
+  "initialRabbits": [
+    {"id": 1, "position": {"x": 0, "y": 3}} , {"id": 2, "position": {"x": 3, "y": 3}}
+  ],
+  "initialFoxes": [
+    {"id": 1, "position": {"x": 1, "y": 0}, "orientation": "VERTICAL"} ,   {"id": 2, "position": {"x": 3, "y": 1}, "orientation": "VERTICAL"}
+  ]
+}

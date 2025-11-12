@@ -63,5 +63,16 @@ public class Level {
     public int hashCode() {
         return Objects.hash(levelId, holes, mushrooms, initialRabbits, initialFoxes);
     }
+
+    @Override
+    public String toString() {
+        return "Level{" +
+                "levelId="+ levelId +
+                ", holes="+holes +
+                ", mushrooms=" +mushrooms +
+                ", initialRabbits="+ initialRabbits +
+                ", initialFoxes="+initialFoxes +
+                '}';
+    }
 }
 
