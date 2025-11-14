@@ -18,12 +18,11 @@ public class GamePlay {
     public GamePlay(Level level) {
         this.level = level;
         State initialState = level.createInitialState();
-        this.currentNode = new Node(null, initialState, null, 0);  // 👈 initial node
+        this.currentNode = new Node(null, initialState, null, 0);
         this.scanner = new Scanner(System.in);
     }
 
 
-    // ==================== Main Game Loop ====================
 
     public boolean play() {
         System.out.println("╔════════════════════════════════════╗");
@@ -31,13 +30,13 @@ public class GamePlay {
         System.out.println("╚════════════════════════════════════╝");
         System.out.println();
 
-        while (!GoalChecker.isFinal(currentNode.getState())) {  // 👈 getState()
+        while (!GoalChecker.isFinal(currentNode.getState())) {
             printBoard();
 
             List<Action> possibleActions = MoveGenerator.getPossibleActions(currentNode.getState());
 
             if (possibleActions.isEmpty()) {
-                System.out.println("\n❌ No possible moves! Game Over.");
+                System.out.println("\n No possible moves");
                 return false;
             }
 
@@ -49,13 +48,12 @@ public class GamePlay {
                 return false;
             }
 
-            // إنشاء node جديدة 🔥
             State newState = selectedAction.applyMove(currentNode.getState());
             currentNode = new Node(
-                    currentNode,           // parent
-                    newState,              // state جديدة
-                    selectedAction,        // action
-                    currentNode.getDepth() + 1  // depth + 1
+                    currentNode,
+                    newState,
+                    selectedAction,
+                    currentNode.getDepth() + 1
             );
 
             System.out.println("\n✅ Move applied! Total moves: " + currentNode.getDepth());
@@ -68,10 +66,9 @@ public class GamePlay {
     }
 
 
-    // ==================== Board Printing ====================
 
     private void printBoard() {
-        State state = currentNode.getState();  // 👈 من Node
+        State state = currentNode.getState();
 
         System.out.println("\n╔═══════════════════════════════╗");
         System.out.println("║         GAME BOARD            ║");
@@ -144,7 +141,6 @@ public class GamePlay {
     }
 
 
-    // ==================== Actions Display ====================
 
     private void printAvailableActions(List<Action> actions) {
         System.out.println("\n Available Actions the available moves is : " + actions.size() + " moves ");
@@ -176,29 +172,17 @@ public class GamePlay {
     }
 
 
-    // ==================== User Input ====================
 
     private Action selectAction(List<Action> actions) {
         while (true) {
-            // إضافة خيار Undo! 🔥
-            System.out.print("\n➤ Enter action number, 'u' to undo, or 'q' to quit: ");
+            System.out.print("\n➤ Enter action number, 'q' to quit: ");
             String input = scanner.nextLine().trim();
 
             if (input.equalsIgnoreCase("q")) {
                 return null;
             }
 
-            // Undo! 🔥
-            if (input.equalsIgnoreCase("u")) {
-                if (currentNode.getParent() != null) {
-                    currentNode = currentNode.getParent();
-                    System.out.println("✅ Undo successful!");
-                    return selectAction(actions);  // إعادة العرض
-                } else {
-                    System.out.println("❌ Nothing to undo!");
-                    continue;
-                }
-            }
+
 
             try {
                 int choice = Integer.parseInt(input);
@@ -206,16 +190,15 @@ public class GamePlay {
                 if (choice >= 0 && choice < actions.size()) {
                     return actions.get(choice);
                 } else {
-                    System.out.println("❌ Invalid choice! Please enter a number between 0 and " + (actions.size() - 1));
+                    System.out.println(" Invalid choice! Please enter a number between 0 and " + (actions.size() - 1));
                 }
             } catch (NumberFormatException e) {
-                System.out.println("❌ Invalid input! Please enter a number, 'u' to undo, or 'q' to quit.");
+                System.out.println(" Invalid input! Please enter a number, 'q' to quit.");
             }
         }
     }
 
 
-    // ==================== Victory Screen ====================
 
     private void printVictory() {
         System.out.println("\n");
@@ -229,14 +212,10 @@ public class GamePlay {
         System.out.println("║                                    ║");
         System.out.println("╚════════════════════════════════════╝");
 
-        // طباعة المسار الكامل! 🔥
-        System.out.println("\n📜 Solution Path:");
+        System.out.println("\n Solution Path:");
         printSolutionPath();
     }
 
-    /**
-     * طباعة المسار الكامل من البداية للنهاية
-     */
     private void printSolutionPath() {
         List<Action> path = currentNode.getPath();
 
@@ -250,10 +229,4 @@ public class GamePlay {
         }
     }
 
-
-    // ==================== Getters ====================
-
-    public Node getCurrentNode() {
-        return currentNode;
-    }
 }
