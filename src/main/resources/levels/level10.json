@@ -5,12 +5,12 @@
     {"x": 0, "y": 0} ,{"x": 4, "y": 0} , {"x": 2, "y": 2} , {"x": 0, "y": 4} , {"x": 4, "y": 4}
   ],
   "mushrooms": [
-    {"x": 1, "y": 0} , {"x": 2, "y": 1} , {"x": 1, "y": 2}
+    {"x": 2, "y": 1} , {"x": 2, "y": 3} , {"x": 0, "y": 4}
   ],
   "initialRabbits": [
-    {"id": 1, "position": {"x": 0, "y": 0}} , {"id": 2, "position": {"x": 3, "y": 2}}
+    {"id": 1, "position": {"x": 1, "y": 4}} , {"id": 2, "position": {"x": 2, "y": 4}}
   ],
   "initialFoxes": [
-
+    {"id": 1, "position": {"x": 1, "y": 0}, "orientation": "VERTICAL"}
   ]
 }
