@@ -1,5 +1,6 @@
 package model;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -46,17 +47,21 @@ public class Node {
 
 
     public List<Action> getPath() {
-        List<Action> path = new ArrayList<>();
+        // 1. استخدم قائمة مؤقتة (أو Stack) لجمع المسار بشكل عكسي
+        List<Action> reversedPath = new ArrayList<>();
         Node current = this;
 
         while (current.parent != null) {
-            path.add(0, current.action);
+            // أضف في النهاية (عملية سريعة O(1))
+            reversedPath.add(current.action);
             current = current.parent;
         }
 
-        return path;
-    }
+        // 2. اعكس القائمة مرة واحدة في النهاية (عملية سريعة O(d))
+        Collections.reverse(reversedPath);
 
+        return reversedPath;
+    }
 
     @Override
     public String toString() {

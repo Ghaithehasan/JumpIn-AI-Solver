@@ -10,45 +10,56 @@ public class Main {
 
     public static void main(String[] args) {
         int the_number_of_level = 10;
-        System.out.println("╔════════════════════════════════════╗");
-        System.out.println("║     Welcome to JUMP IN             ║");
-        System.out.println("║     Level " + the_number_of_level + "                    ║");
-        System.out.println("╚════════════════════════════════════╝");
-        System.out.println();
-
-        try {
-            Level level = LevelLoader.loadLevel(the_number_of_level);
-            GamePlay game = new GamePlay(level);
-            game.play();
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());;
-        }
-
-        System.out.println("=======================================================================");
-        System.out.println("=======================================================================");
+//        System.out.println("╔════════════════════════════════════╗");
+//        System.out.println("║     Welcome to JUMP IN             ║");
+//        System.out.println("║     Level " + the_number_of_level + "                       ║");
+//        System.out.println("╚════════════════════════════════════╝");
+//        System.out.println();
 //
 //        try {
 //            Level level = LevelLoader.loadLevel(the_number_of_level);
-//            List<Action> solution = SearchAlgorithms.bfs(level);
+//            GamePlay game = new GamePlay(level);
+//            game.play();
 //
-//            if (solution != null) {
-//                System.out.println("تم العثور على حل!");
-//                int the_number_of_steps=0;
-//                for (Action action : solution) {
-//                    System.out.println(action);
-//                    the_number_of_steps++;
-//                }
-//
-//                System.out.println("the number of steps is : " + the_number_of_steps);
-//            } else {
-//                System.out.println("لم يتم العثور على حل لهذا المستوى.");
-//            }
 //        } catch (IOException e) {
-//            e.printStackTrace();
+//            System.out.println(e.getMessage());;
 //        }
 
 
+
+
+
+        System.out.println("=======================================================================");
+        System.out.println("=======================================================================");
+
+
+
+
+
+        try {
+            Level level = LevelLoader.loadLevel(the_number_of_level);
+//            List<Action> solution = SearchAlgorithms.BFS(level);
+            List<Action> solution = SearchAlgorithms.DFS(level);
+
+
+            if (solution != null) {
+                System.out.println("--- the answer is Found ---");
+                int the_number_of_steps=0;
+                for (Action action : solution) {
+                    System.out.println(action);
+                    the_number_of_steps++;
+                }
+
+                System.out.println("the number of steps is : " + the_number_of_steps);
+            } else {
+                System.out.println("didnt Found The Answer");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
+
 
 }
