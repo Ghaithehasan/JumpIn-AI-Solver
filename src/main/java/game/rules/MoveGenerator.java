@@ -254,26 +254,63 @@ public class MoveGenerator {
         return actions;
     }
 
+//    private static List<Action> generateRabbitActions(State state) {
+//        List<Action> actions = new ArrayList<>();
+//
+//        for (Rabbit rabbit : state.getRabbits()) {
+//            actions.addAll(generateRabbitJumps(rabbit , state));
+//        }
+//
+//        return actions;
+//    }
+
+
     private static List<Action> generateRabbitActions(State state) {
         List<Action> actions = new ArrayList<>();
 
-        for (Rabbit rabbit : state.getRabbits()) {
-            actions.addAll(generateRabbitJumps(rabbit, state));
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 5; x++) {
+                Position pos = new Position(x, y);
+
+                Rabbit rabbit = findRabbitAt(state, pos);
+
+                if (rabbit != null) {
+                    actions.addAll(generateRabbitJumps(rabbit, state));
+                }
+            }
         }
 
         return actions;
     }
+
+    // Helper method:
+    private static Rabbit findRabbitAt(State state, Position pos) {
+        for (Rabbit r : state.getRabbits()) {
+            if (r.getPosition().equals(pos)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+
+
+
+
+
+
 
     private static List<Action> generateRabbitJumps(Rabbit rabbit, State state) {
         List<Action> jumps = new ArrayList<>();
         Position pos = rabbit.getPosition();
 
 
+
         int[][] directions = {
-                {0, -1},   // up
-                {0, +1},   // down
-                {-1, 0},   // left
-                {+1, 0}    // right
+                {0, -1},   // UP
+                {0, +1},   // DOWN
+                {+1, 0},   // RIGHT
+                {-1, 0}    // LEFT
         };
 
         for (int[] dir : directions) {
@@ -322,11 +359,36 @@ public class MoveGenerator {
     private static List<Action> generateFoxActions(State state) {
         List<Action> actions = new ArrayList<>();
 
-        for (Fox fox : state.getFoxes()) {
-            actions.addAll(generateFoxMoves(fox, state));
+        // لف على الرقعة
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 5; x++) {
+                Position pos = new Position(x, y);
+
+                // هل في ثعلب عند هالموقع؟
+                Fox fox = findFoxAt(state, pos);
+
+                if (fox != null) {
+                    // جيب حركات هالثعلب
+                    actions.addAll(generateFoxMoves(fox, state));
+                }
+            }
         }
 
         return actions;
+    }
+
+
+    private static Fox findFoxAt(State state , Position pos)
+    {
+        for(Fox fox : state.getFoxes())
+        {
+            if(fox.getPosition().equals(pos))
+            {
+                return fox;
+            }
+        }
+
+        return null;
     }
 
     private static List<Action> generateFoxMoves(Fox fox, State state) {
@@ -334,12 +396,15 @@ public class MoveGenerator {
         Orientation ori = fox.getOrientation();
 
 
-        if (ori == Orientation.HORIZONTAL) {
+        if (ori == Orientation.VERTICAL) {
+            moves.addAll(generateFoxStep(fox, 0, -1, state));  // upp
+            moves.addAll(generateFoxStep(fox, 0, +1, state));  // down
+
+
+        } else {
+
             moves.addAll(generateFoxStep(fox, +1, 0, state));  // right
             moves.addAll(generateFoxStep(fox, -1, 0, state));  // left
-        } else {
-            moves.addAll(generateFoxStep(fox, 0, +1, state));  // down
-            moves.addAll(generateFoxStep(fox, 0, -1, state));  // upp
         }
 
         return moves;
@@ -359,18 +424,7 @@ public class MoveGenerator {
         }
         return moves;
 
-        //        for (int step = 1; step <= 4; step++) {
-//            Position newPos = new Position(
-//                    currentPos.getX() + dx * step,
-//                    currentPos.getY() + dy * step
-//            );
-//
-//            if (isValidFoxMove(fox, newPos, state)) {
-//                moves.add(new FoxAction(fox.getId(), newPos));
-//            } else {
-//                break;
-//            }
-//        }
+
     }
 
     private static boolean isValidFoxMove(Fox fox, Position newPos, State state) {
